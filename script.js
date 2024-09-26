@@ -21,7 +21,7 @@ let num1 = null;
 let num2 = null;
 let opr = null;
 let cntDot = 0;
-
+let fontSize = 60;
 display.innerText = "";
 function populate(data) {
     if (data == "+" || data == "-" || data == "*" || data == "/") {
@@ -52,6 +52,8 @@ function populate(data) {
             opr = null;
         }
     } else if (data == "c") {
+        fontSize = 60;
+        display.style.fontSize = fontSize + "px";
         cntDot = 0;
         num1 = null;
         num2 = null;
@@ -62,6 +64,8 @@ function populate(data) {
             num1 = null;
             num2 = null;
             opr = null;
+            fontSize = 60;
+            display.style.fontSize = fontSize + "px";
         }
         if (display.innerText[display.innerText.length - 1] == opr) {
             opr = null;
@@ -77,6 +81,16 @@ function populate(data) {
         } else if (data != ".") {
             display.innerText += data;
         }
+    }
+    while (
+        display.scrollHeight > display.clientHeight ||
+        display.scrollWidth > display.clientWidth
+    ) {
+        if (fontSize < 20) {
+            break;
+        }
+        fontSize--;
+        display.style.fontSize = fontSize + "px";
     }
 }
 const b1 = document.getElementById("1");
